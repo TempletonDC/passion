@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Passion Project Workbook</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky section rail on the left (a top strip on phones), one long scrolling column of worksheet cards on the right.
+   Palette follows the printed workbook: ink blue, one orange, a cool paper ground. */
+:root{
+  --bg:#EEF1F6; --surface:#FFFFFF; --ink:#0F1B2D; --muted:#566275; --line:#CDD5E1; --rule:#E4E9F0;
+  --accent:#D9481C; --accent-tint:#FCE8E0; --blue:#1F4FD8; --teal:#0B6E8A; --ok:#1B7A4B; --ok-tint:#DFF3E8;
+  --tint:#F6F8FB; --focus:#1F4FD8;
+  --display:'DM Serif Display',Georgia,'Times New Roman',serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D131C; --surface:#151D2A; --ink:#E8EDF5; --muted:#9AA6B8; --line:#2C3849; --rule:#222D3C;
+  --accent:#FF8057; --accent-tint:#3A2219; --blue:#7FA5FF; --teal:#4FC3DE; --ok:#5ED394; --ok-tint:#16301F;
+  --tint:#111926; --focus:#7FA5FF; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0D131C; --surface:#151D2A; --ink:#E8EDF5; --muted:#9AA6B8; --line:#2C3849; --rule:#222D3C;
+  --accent:#FF8057; --accent-tint:#3A2219; --blue:#7FA5FF; --teal:#4FC3DE; --ok:#5ED394; --ok-tint:#16301F;
+  --tint:#111926; --focus:#7FA5FF; color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.shell{display:grid;grid-template-columns:230px minmax(0,1fr);gap:32px;max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:24px 72px}
+aside.rail{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;gap:18px}
+.brand{font:12px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.brand b{display:block;font:400 22px/1.1 var(--display);letter-spacing:0;text-transform:none;color:var(--ink);margin-top:4px}
+.overall{display:grid;gap:6px}
+.overall .row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+nav.sections ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+nav.sections a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:14.5px;line-height:1.25}
+nav.sections a:hover{background:var(--surface)}
+nav.sections a[aria-current="true"]{background:var(--surface);font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}
+.ring{--p:0;flex:none;width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center;position:relative;font-size:11px;font-weight:700;color:var(--muted)}
+.ring::before{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--bg)}
+nav.sections a[aria-current="true"] .ring::before{background:var(--surface)}
+.ring span{position:relative;font-variant-numeric:tabular-nums}
+.ring.full{background:var(--ok)}
+.ring.full::before{background:var(--ok)}
+.ring.full span{color:#fff}
+.saved{font-size:12.5px;color:var(--muted)}
+
+main{min-width:0;display:flex;flex-direction:column;gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px 28px 30px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 16px)}
+.hero{padding:26px 28px}
+.hero h1{margin:0 0 14px;font:400 clamp(30px,5vw,46px)/1.02 var(--display);letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.idrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.idrow label{display:grid;gap:4px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.idrow input{border:0;border-bottom:1.5px solid var(--line);background:transparent;padding:6px 0;font-size:16px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--ink);border-radius:0}
+.idrow input:focus{border-bottom-color:var(--blue);outline:none}
+
+h2{margin:0 0 14px;display:flex;align-items:baseline;gap:12px;font:400 30px/1.1 var(--display);color:var(--blue)}
+h2 .num{color:var(--accent)}
+h2 .tag{margin-left:auto;font:600 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--ok);background:var(--ok-tint);padding:5px 9px;border-radius:99px}
+h2 .tag[hidden]{display:none}
+.lead{margin:0 0 6px;color:var(--ink)}
+.q{margin-top:26px;display:grid;gap:10px}
+.q .qh{margin:0}
+.qn{text-decoration:underline;text-underline-offset:3px;margin-right:4px}
+.q ul,.q ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.q ul ul{margin-top:5px;list-style:circle}
+.q ul ul ul{list-style:square}
+.q ol[type="a"]>li::marker{font-weight:600}
+.or{font-weight:700;margin:4px 0 4px 1.3em}
+.hint,.note,.callout{border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--tint);font-size:15px}
+.hint b{color:var(--accent);letter-spacing:.04em}
+.callout.info{background:var(--tint)}
+.callout.go{background:var(--ok-tint);border-color:transparent}
+.callout.venn{background:var(--tint)}
+.callout.venn p{margin:0 0 4px}
+
+/* text boxes */
+textarea.paper,.line-in{display:block;width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);padding:12px 14px;line-height:1.55;transition:border-color .15s,box-shadow .15s}
+textarea.paper{resize:vertical;overflow:hidden;min-height:calc(var(--rows,4)*1.55em + 26px)}
+textarea.paper::placeholder,.line-in::placeholder{color:var(--muted);opacity:.85}
+textarea.paper:hover,.line-in:hover{border-color:var(--muted)}
+textarea.paper:focus,.line-in:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 22%,transparent)}
+textarea.paper.has,.line-in.has{border-color:color-mix(in srgb,var(--blue) 40%,var(--line))}
+.line-in{padding:9px 12px}
+.count{font-size:12.5px;color:var(--muted);text-align:right;margin-top:-4px;font-variant-numeric:tabular-nums}
+
+/* timer */
+.timer{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--tint)}
+.timer .t{font:500 34px/1 var(--mono);letter-spacing:.02em;min-width:5ch;font-variant-numeric:tabular-nums}
+.timer .t.end{color:var(--accent)}
+.timer .bar{flex:1 1 120px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:14.5px}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.btn.danger{color:var(--accent)}
+.btn.sm{padding:5px 10px;font-size:13.5px}
+.btn[hidden]{display:none}
+.msg{font-size:14px;color:var(--muted)}
+
+/* topics */
+.topics{display:grid;gap:8px}
+.topics label{display:grid;grid-template-columns:2em 1fr;align-items:center;gap:6px}
+.topics label span{font-weight:600}
+
+/* svg tools */
+.diagram{border:1px solid var(--line);border-radius:12px;background:var(--tint);padding:8px;touch-action:pan-y}
+.diagram svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto;user-select:none;-webkit-user-select:none}
+.chip{cursor:grab;touch-action:none}
+.chip:active{cursor:grabbing}
+.chip:focus-visible{outline:none}
+.chip:focus-visible rect{stroke:var(--focus);stroke-width:3}
+.readout{display:grid;gap:4px;font-size:15px;margin:2px 0 0;padding:0;list-style:none}
+.readout li b{font-weight:600}
+.readout .all{color:var(--ok);font-weight:600}
+.addrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.addrow input[type=text]{flex:1 1 180px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface)}
+.addrow select{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface)}
+.addrow label.chk{display:flex;align-items:center;gap:6px;font-size:14.5px}
+.people{list-style:none;margin:0;padding:0;display:grid;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.people:empty{display:none}
+.people li{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:12px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--rule);font-size:15px}
+.people li:last-child{border-bottom:0}
+.people .ringname{color:var(--muted);font-size:13.5px}
+.people label{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted)}
+
+/* grids */
+.gridwrap{display:grid;gap:10px}
+.grid{width:100%;border-collapse:collapse}
+.grid th{text-align:left;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:8px 8px;border-bottom:2px solid var(--ink);vertical-align:bottom}
+.grid td{border-bottom:1px solid var(--line);padding:4px 6px;vertical-align:top}
+.grid td input[type=text],.grid td input[type=date],.grid td textarea{width:100%;border:0;background:transparent;padding:6px 2px;border-radius:0;resize:none;overflow:hidden;min-height:2.4rem;display:block}
+.grid td input:focus,.grid td textarea:focus{outline:none;background:var(--tint)}
+.grid td input[type=checkbox]{width:20px;height:20px;margin:9px 8px;accent-color:var(--ok)}
+.grid tr.done td:not(:first-child):not(.x) textarea,.grid tr.done td:not(:first-child):not(.x) input{text-decoration:line-through;color:var(--muted)}
+.grid th.x,.grid td.x{width:34px;padding:0;text-align:center}
+.ic{border:0;background:transparent;cursor:pointer;font-size:20px;line-height:1;color:var(--muted);padding:6px 8px;border-radius:6px}
+.ic:hover{color:var(--accent);background:var(--tint)}
+.gridtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.gridtools .msg{margin-left:auto}
+.scroll{overflow-x:auto}
+
+/* checks / radios */
+.cbrow{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 0}
+.cbrow input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ok)}
+.cbrow.sub{margin-left:32px}
+.cbrow p{margin:0}
+.cbrow .d{color:var(--muted);font-size:15px;display:block;margin-top:2px}
+.cbrow input:checked + div b{color:var(--ok)}
+.techs{display:grid;gap:8px}
+.techs label{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center}
+.techs input[type=radio]{width:20px;height:20px;accent-color:var(--accent);margin:0}
+.techs .cap{font-size:13.5px;color:var(--muted);margin:0 0 2px 32px}
+.email{display:grid;gap:10px;border:1px solid var(--rule);border-radius:12px;padding:14px;background:var(--tint)}
+.email .to{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;font-weight:600}
+.email .to input{font-weight:400}
+.sec-h3{font-weight:700;text-decoration:underline;text-underline-offset:3px;margin:22px 0 6px}
+
+.tools{display:grid;gap:12px}
+.tools .btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tools input[type=file]{display:none}
+
+@media (max-width:860px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:14px;padding-block:0 56px}
+  aside.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;margin-inline:-16px;padding:10px 16px 8px;background:var(--bg);border-bottom:1px solid var(--line);gap:8px}
+  .brand{display:none}
+  .overall .row{font-size:12.5px}
+  nav.sections ul{flex-direction:row;overflow-x:auto;gap:4px;padding-bottom:2px}
+  nav.sections li{flex:none}
+  nav.sections a{padding:6px 10px;border:1px solid var(--line);border-radius:99px;background:var(--surface);font-size:13.5px;white-space:nowrap}
+  .saved{display:none}
+  .card{padding:20px 16px 22px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 96px)}
+  .hero{padding:20px 16px}
+  .idrow{grid-template-columns:1fr}
+  h2{font-size:26px}
+  .people li{grid-template-columns:minmax(0,1fr) auto;row-gap:2px}
+  .people .ringname{grid-column:1}
+  /* table rows become cards */
+  .grid,.grid tbody,.grid tr,.grid td{display:block;width:100%}
+  .grid thead{display:none}
+  .grid tr{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;padding:6px 8px;position:relative}
+  .grid td{border:0;padding:4px 0}
+  .grid td::before{content:attr(data-label);display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:0}
+  .grid td[data-label="Done"]{display:flex;align-items:center;gap:8px}
+  .grid td[data-label="Done"]::before{margin:0}
+  .grid td[data-label="Done"] input{margin:4px 0}
+  .grid td.x{position:absolute;top:4px;right:4px;width:auto}
+  .grid td.x::before{display:none}
+  .grid td input[type=text],.grid td input[type=date],.grid td textarea{border-bottom:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+
+/* ---- page base (the artifact host used to supply this) ---- */
+[hidden]{display:none!important}
+img{max-width:100%}
+
+/* ---- tighter layout: one section at a time ---- */
+body{font-size:15.5px;line-height:1.5}
+.shell{gap:24px;padding-block:18px 48px;max-width:1040px}
+main{gap:12px}
+.card{padding:20px 24px 22px}
+.hero{padding:16px 24px 18px}
+.hero h1{font-size:clamp(26px,4.2vw,38px);margin-bottom:10px}
+h2{font-size:27px;margin-bottom:8px}
+.lead{margin-bottom:0}
+.q{margin-top:16px;gap:8px}
+.q ul,.q ol{gap:3px}
+.hint,.note,.callout{padding:9px 14px;font-size:14.5px}
+.callout.venn p{margin-bottom:2px}
+.timer{padding:9px 14px}
+.timer .t{font-size:30px}
+.diagram svg{max-width:500px}
+.cbrow{padding:3px 0}
+.people li{padding:6px 12px}
+.card.step{display:none}
+.card.step.cur{display:block}
+.stepnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid var(--rule)}
+.stepnav .btn{padding:9px 16px}
+
+/* ---- sign-in, roster, banners ---- */
+.screen{min-height:100vh;display:grid;place-items:start center;padding:max(28px,env(safe-area-inset-top,0px)) 16px 40px}
+.authcard,.rostercard,.cfgcard{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 26px 24px;margin-top:6vh}
+.rostercard{max-width:820px}
+.authcard .brand{margin-bottom:16px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--tint);border:1px solid var(--rule);border-radius:10px;margin-bottom:16px}
+.tabs button{border:0;background:transparent;padding:8px 10px;border-radius:7px;cursor:pointer;font-weight:600;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.authcard form{display:grid;gap:12px}
+.field{display:grid;gap:4px}
+.field label{font-size:13px;font-weight:600;letter-spacing:.02em}
+.field .help{font-size:12.5px;color:var(--muted)}
+.field input,.field select{border:1.5px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 12px;width:100%}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 22%,transparent)}
+.authmsg{min-height:1.4em;margin:12px 0 0;font-size:14px;color:var(--accent)}
+.authmsg.ok{color:var(--ok)}
+.btn.wide{width:100%;padding:11px 16px}
+.acct{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.acct .who{min-width:0;display:grid;line-height:1.25}
+.acct .who b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct .who span{font-size:12px;color:var(--muted)}
+.acctbtns{display:flex;gap:6px;flex:none}
+.robanner,.conflict{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 14px;border-radius:10px;font-size:14.5px}
+.robanner{background:var(--accent-tint);border:1px solid var(--accent)}
+.conflict{background:var(--accent-tint);border:1px solid var(--accent);font-weight:600}
+.rosterhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.rosterhead h1{margin:0;font:400 30px/1.1 var(--display);color:var(--blue)}
+.rrow{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(90px,1fr) auto auto;gap:14px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--rule)}
+.rrow:last-child{border-bottom:0}
+.rrow .n{min-width:0}
+.rrow .n b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rrow .n span{font-size:13px;color:var(--muted)}
+.rrow .pc{display:grid;gap:3px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rrow select{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--surface);max-width:170px}
+.ro textarea,.ro input{cursor:default}
+.ro .gridtools,.ro .ic,.ro #tieForm,.ro #resetBtn,.ro #restoreBtn,.ro [data-rmtie],.ro #peopleList label{display:none!important}
+@media (max-width:860px){
+  .acct{padding:6px 10px}
+  .acct .who span{display:none}
+  .stepnav .btn{flex:1}
+  .stepnav{flex-wrap:wrap}
+  .card{padding:16px 14px 18px}
+  .rrow{grid-template-columns:minmax(0,1fr) auto;row-gap:8px}
+  .rrow .pc{grid-column:1/-1;order:3}
+}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23D9481C'/%3E%3Cpath d='M16 6l2.6 7.4L26 16l-7.4 2.6L16 26l-2.6-7.4L6 16l7.4-2.6z' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="screen" id="viewBoot"><p class="msg" style="margin-top:20vh">Loading…</p></div>
+
+<div class="screen" id="viewCfg" hidden><div class="cfgcard">
+  <div class="brand">Templeton Academy<b>Passion Project Workbook</b></div>
+  <p>This site is not connected to its database yet.</p>
+  <p class="msg">Open <b>config.js</b>, paste in the Supabase project URL and anon key, and upload the file again. Step-by-step instructions are in README.md.</p>
+</div></div>
+
+<div class="screen" id="viewAuth" hidden><div class="authcard">
+  <div class="brand">Templeton Academy<b>Passion Project Workbook</b></div>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="tabIn" aria-selected="true">Sign in</button>
+    <button type="button" role="tab" id="tabUp" aria-selected="false">Create account</button>
+  </div>
+  <form id="formIn" autocomplete="on">
+    <div class="field"><label for="inUser">Username</label><input id="inUser" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required></div>
+    <div class="field"><label for="inPass">Password</label><input id="inPass" name="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn primary wide" type="submit">Sign in</button>
+  </form>
+  <form id="formUp" autocomplete="on" hidden>
+    <div class="field"><label for="upName">Your name</label><input id="upName" autocomplete="name" maxlength="80" required></div>
+    <div class="field"><label for="upUser">Choose a username</label><input id="upUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="30" required><span class="help">3 to 30 letters, numbers, dots, dashes or underscores.</span></div>
+    <div class="field"><label for="upPass">Choose a password</label><input id="upPass" type="password" autocomplete="new-password" minlength="8" required><span class="help">At least 8 characters. Your teachers cannot see it, so write it down somewhere safe.</span></div>
+    <div class="field"><label for="upAdv">Your advisor</label><select id="upAdv"><option value="">Choose your advisor</option></select></div>
+    <div class="field"><label for="upCode">Class code</label><input id="upCode" autocomplete="off" autocapitalize="none" spellcheck="false" required><span class="help">Your advisor will give you this.</span></div>
+    <button class="btn primary wide" type="submit">Create account</button>
+  </form>
+  <p class="authmsg" id="authMsg" role="alert" aria-live="polite"></p>
+</div></div>
+
+<div class="screen" id="viewRoster" hidden><div class="rostercard">
+  <div class="rosterhead"><h1 id="rosterTitle">Students</h1><div class="acctbtns"><span class="msg" id="rosterWho" style="align-self:center"></span><button class="btn sm" type="button" id="rosterOut">Sign out</button></div></div>
+  <p class="msg" id="rosterMsg" aria-live="polite"></p>
+  <div id="rosterList"></div>
+</div></div>
+
+<div class="shell" id="viewApp" hidden>
+<aside class="rail" aria-label="Workbook progress">
+  <div class="brand">Templeton Academy<b>Passion Project Workbook</b></div>
+  <div class="acct" id="acct"><div class="who"><b id="acctName"></b><span id="acctRole"></span></div><div class="acctbtns"><button class="btn sm" type="button" id="btnRoster" hidden>Students</button><button class="btn sm" type="button" id="btnOut">Sign out</button></div></div>
+  <div class="overall">
+    <div class="row"><span>Overall progress</span><span id="overallPct">0%</span></div>
+    <div class="bar" role="progressbar" aria-label="Overall progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="overallBar"><i></i></div>
+  </div>
+  <nav class="sections" aria-label="Sections">
+    <ul id="navList"></ul>
+  </nav>
+  <div class="saved" id="savedNote" aria-live="polite"></div>
+</aside>
+
+<main>
+<div class="robanner" id="roBanner" hidden><span id="roText"></span><button class="btn sm" type="button" id="roBack">Back to students</button></div>
+<div class="conflict" id="conflict" hidden><span>This workbook was changed in another window or on another device, so this window stopped saving.</span><button class="btn sm primary" type="button" id="reloadBtn">Reload latest</button></div>
+<section class="card hero" id="top">
+  <h1><em>Passion</em> Project Workbook</h1>
+  <div class="idrow">
+    <label>Name<input type="text" id="m-name" data-meta="name" autocomplete="name"></label>
+    <label>Date<input type="date" id="m-date" data-meta="date"></label>
+    <label>Advisor<input type="text" id="m-advisor" data-meta="advisor"></label>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="card" id="s1" data-sec="s1">
+  <h2><span class="num">1.</span> Get Curious <span class="tag" hidden>Complete</span></h2>
+  <p class="lead">What activities make you lose track of time? What do you enjoy learning about? What problems do you want to solve?</p>
+
+  <div class="q">
+    <p class="qh"><b class="qn">1.1.</b> Set a timer for 5 minutes. Write down your answers to the following question,</p>
+    <ul><li>What would you do if money, time, or other obligations were not a factor?</li></ul>
+    <div class="timer" id="timer">
+      <div class="t" id="tDisplay" role="timer" aria-live="off">05:00</div>
+      <div class="bar" aria-hidden="true"><i id="tBar"></i></div>
+      <button class="btn primary sm" id="tStart" type="button">Start 5 minutes</button>
+      <button class="btn sm" id="tReset" type="button">Reset</button>
+      <span class="msg" id="tMsg" aria-live="polite"></span>
+    </div>
+    <textarea class="paper" id="q11" data-k="q11" data-rows="7" aria-label="Answer to 1.1"></textarea>
+  </div>
+
+  <div class="q">
+    <p class="qh"><b class="qn">1.2</b> Get out a pen/pencil. Pull out your T-Popper.</p>
+    <ul>
+      <li>Put a <b>star</b> next to anything on the T-Popper that is currently not getting your attention. (Note: If you don’t want to write directly on your T-Popper, use a sticky or take notes on a separate piece of paper).</li>
+      <li>What do you notice about what you starred?
+        <ul>
+          <li>Do you see themes between what you are prioritizing right now and what you aren’t?
+            <ul><li>If so, what themes do you notice?</li></ul></li>
+          <li>Is there anything you would like to pay more attention to or focus on more?</li>
+        </ul></li>
+    </ul>
+    <textarea class="paper" id="q12a" data-k="q12a" data-rows="7" aria-label="Answer to 1.2, what you noticed"></textarea>
+    <ul><li>Refer back to your answer for #1.1. Is there anything you listed that is <u>not</u> on your T-Popper?
+      <ul><li>If so, should you add it to your T-Popper? Why/Why not?</li></ul></li></ul>
+    <textarea class="paper" id="q12b" data-k="q12b" data-rows="5" aria-label="Answer to 1.2, items not on your T-Popper"></textarea>
+    <div class="hint"><b>HINT:</b> If you want to add something(s) to your T-Popper, do it now so you don’t forget!</div>
+  </div>
+
+  <div class="q">
+    <p class="qh"><b class="qn">1.3.</b> Now, it is time to <b>choose a focus</b> for your passion project.</p>
+    <ul>
+      <li>Consider your answers to questions #1.1 and #1.2.
+        <ul><li>Do you want to focus on something, possibly new, that came to mind when you were brainstorming on #1.1?</li></ul></li>
+    </ul>
+    <p class="or">OR</p>
+    <ul><li style="list-style:circle">Do you want to focus on something from your T-Popper that you aren’t currently focusing on?</li></ul>
+    <p class="or">OR</p>
+    <ul><li style="list-style:circle">Do you want to focus on something from your T-Popper that you are currently focusing on?</li></ul>
+    <ul><li>Narrow your ideas down to <b>three</b> topics.</li></ul>
+    <div class="topics" id="topicInputs">
+      <label><span>a.</span><input class="line-in" type="text" id="topic0" placeholder="Topic a" aria-label="Topic a" maxlength="60"></label>
+      <label><span>b.</span><input class="line-in" type="text" id="topic1" placeholder="Topic b" aria-label="Topic b" maxlength="60"></label>
+      <label><span>c.</span><input class="line-in" type="text" id="topic2" placeholder="Topic c" aria-label="Topic c" maxlength="60"></label>
+    </div>
+
+    <div class="callout venn">
+      <p><b><u>Draw a Venn Diagram</u></b></p>
+      <p>In the diagram below, (1) three overlapping circles are drawn for you. (2) Each circle is labeled: a. Low-Risk; b. Low-Pressure; c. Passion-Based. (3) <b>Drag your three topics</b> into the diagram.</p>
+      <p><b>Is there one topic that fits in the intersection of all three circles?</b></p>
+    </div>
+    <div class="diagram"><svg id="venn" viewBox="0 0 600 540" role="group" aria-label="Venn diagram with three overlapping circles: Low-Risk, Low-Pressure, Passion-Based"></svg></div>
+    <ul class="readout" id="vennNote" aria-live="polite"></ul>
+    <textarea class="paper" id="q13" data-k="q13" data-rows="3" aria-label="Which topic fits in the intersection of all three circles?" placeholder="Which topic fits in all three? What does that tell you?"></textarea>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2" data-sec="s2">
+  <h2><span class="num">2.</span> Defining Your Project <span class="tag" hidden>Complete</span></h2>
+  <p class="lead">Now that you have chosen a topic for your project, it is time to define your <b>focus</b>.</p>
+  <div class="q">
+    <p class="qh"><b class="qn">2.1.</b> What problem are you trying to solve, or what skill are you trying to develop?</p>
+    <textarea class="paper" data-k="q21" data-rows="3" aria-label="Answer to 2.1"></textarea>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">2.2.</b> What will the final product or outcome of your project be?</p>
+    <textarea class="paper" data-k="q22" data-rows="3" aria-label="Answer to 2.2"></textarea>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">2.3</b> Describe your project in one sentence.</p>
+    <textarea class="paper" data-k="q23" data-rows="2" aria-label="Answer to 2.3"></textarea>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3" data-sec="s3">
+  <h2><span class="num">3.</span> Gathering Resources <span class="tag" hidden>Complete</span></h2>
+  <p class="lead">What resources do you need to complete your project? This could include materials, tools, information, or support from others.</p>
+  <div class="q">
+    <p class="qh"><b class="qn">3.1.</b> What materials or tools will you need to gather to complete your project?</p>
+    <textarea class="paper" data-k="q31" data-rows="6" aria-label="Answer to 3.1"></textarea>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">3.2.</b> What information do you need, and where can you find it?</p>
+    <textarea class="paper" data-k="q32" data-rows="6" aria-label="Answer to 3.2"></textarea>
+  </div>
+
+  <div class="q">
+    <p class="qh"><b class="qn">3.3.</b> Build a Personal Ties Map.</p>
+    <p style="margin:0">Passion projects are a great opportunity to connect with those who share similar interests—and who can help you learn more about your topic and connect you to even more people who can help you learn even more!</p>
+    <ul>
+      <li><b>How to build your map:</b>
+        <ol type="a">
+          <li>Your name sits in the bullseye.</li>
+          <li>In the <b>inner circle</b>, put the <b>names of people who you know</b> and who have a skill you need to develop/use for your passion project and/or that have knowledge in the passion project’s topic.</li>
+          <li>In the <b>outer circle</b>, put the <b>names of people who you have heard of or know of</b> (maybe a friend of a friend, someone’s parent, or an online forum) who have a skill you need to develop/use for your passion project and/or that have knowledge in the passion project’s topic.</li>
+          <li>Tick <b>Could keep me accountable</b> for the <b>names of people who could help you stay accountable</b> to your project timeline and goals. They get a star on the map. These will likely be inner-circle people. However, if you can make a case for someone being an outer circle person who would be able/willing to hold you accountable, you can include them. <i>If the person is already on your map, just tick the box next to their name.</i></li>
+        </ol></li>
+    </ul>
+    <form class="addrow" id="tieForm" autocomplete="off">
+      <input type="text" id="tieName" placeholder="Add a person’s name" aria-label="Person’s name" maxlength="40">
+      <select id="tieRing" aria-label="Which circle"><option value="inner">Inner circle</option><option value="outer">Outer circle</option></select>
+      <label class="chk"><input type="checkbox" id="tieAcct"> Could keep me accountable</label>
+      <button class="btn primary" type="submit">Add to map</button>
+    </form>
+    <div class="diagram"><svg id="ties" viewBox="0 0 600 600" role="group" aria-label="Personal ties map: bullseye, inner circle, outer circle"></svg></div>
+    <ul class="people" id="peopleList"></ul>
+    <p class="msg" id="tieMsg">Drag a name to move it between circles. Select a name and use the arrow keys to nudge it.</p>
+  </div>
+
+  <div class="q">
+    <p class="qh"><b class="qn">3.4</b> Make a plan to reach out for support.</p>
+    <p style="margin:0">Now that you have identified people who could help you on your project, you need to:</p>
+    <ol>
+      <li>Pick 2-3 people to reach out to; including someone who is willing to be an accountability partner.</li>
+      <li>Draft an introductory email to each person in the space below.</li>
+      <li>When you are finished share with your Advisor for feedback.</li>
+      <li>Make edits, type, and send!</li>
+    </ol>
+    <div class="email"><label class="to">To: <input class="line-in" type="text" data-k="e1to" aria-label="Email 1 recipient"></label>
+      <textarea class="paper" data-k="e1" data-rows="6" aria-label="Email draft 1"></textarea></div>
+    <div class="email"><label class="to">To: <input class="line-in" type="text" data-k="e2to" aria-label="Email 2 recipient"></label>
+      <textarea class="paper" data-k="e2" data-rows="6" aria-label="Email draft 2"></textarea></div>
+    <div class="email"><label class="to">To: <input class="line-in" type="text" data-k="e3to" aria-label="Email 3 recipient"></label>
+      <textarea class="paper" data-k="e3" data-rows="6" aria-label="Email draft 3"></textarea></div>
+    <label class="cbrow"><input type="checkbox" data-ck="c34"><div>I shared my drafts with my Advisor, made edits, and sent them.</div></label>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4" data-sec="s4">
+  <h2><span class="num">4.</span> Planning and Timeline <span class="tag" hidden>Complete</span></h2>
+  <div class="q" style="margin-top:0">
+    <p class="qh"><b class="qn">4.1.</b> Create a detailed plan and timeline to guide your progress.</p>
+    <ul>
+      <li>What tasks need to be completed?</li>
+      <li>How long will each task take?</li>
+      <li>When will you complete each task?</li>
+      <li>What resources will you need to complete each task? This can include getting help/advice from your support people that you identified in sections #3.3 and #3.4.</li>
+    </ul>
+    <div class="sec-h3" style="text-decoration:none;font:400 22px var(--display);margin:8px 0 0">Project plan</div>
+    <div class="gridwrap" id="g-plan"></div>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">4.2.</b> Make Google Calendar your friend.</p>
+    <p style="margin:0">Input the deadlines you identified above into your calendar. Choose a special color to make them stand out to you. You might want to set a reminder, as well.</p>
+    <label class="cbrow"><input type="checkbox" data-ck="c42"><div>My deadlines are in my calendar.</div></label>
+    <div class="callout info"><b>Ask your Advisor if you need extra support with this.</b></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5" data-sec="s5">
+  <h2><span class="num">5.</span> Setting Up for Success <span class="tag" hidden>Complete</span></h2>
+  <p class="lead">Before you start working on your project, identify strategies to support yourself when your motivation or focus lags, and for when challenges arise. By thinking about these obstacles <i>prior</i> to you beginning your project—and coming up with ways to overcome them—you will be more prepared and less stressed when the obstacles arise.</p>
+  <div class="q">
+    <p class="qh"><b class="qn">5.1</b> Even when working on a passion project, it is easy to get distracted and unfocused at times. In the space below, reflect on the following questions:</p>
+    <ul>
+      <li>How will you know when you are starting to lose focus? What will start/stop happening? What will you start to feel?</li>
+    </ul>
+    <textarea class="paper" data-k="q51" data-rows="5" aria-label="Signs you are losing focus"></textarea>
+    <ul><li>List <b>three</b> techniques you can use to re-focus on your project. <b>Circle the one</b> you are committed to using as a first response when you notice the signs of distraction.</li></ul>
+    <div class="techs" role="radiogroup" aria-label="Techniques; choose your first response">
+      <label><input type="radio" name="first" data-radio="first" value="1" aria-label="Technique 1 is my first response"><input class="line-in" type="text" data-k="t1" placeholder="Technique 1" aria-label="Technique 1"></label>
+      <label><input type="radio" name="first" data-radio="first" value="2" aria-label="Technique 2 is my first response"><input class="line-in" type="text" data-k="t2" placeholder="Technique 2" aria-label="Technique 2"></label>
+      <label><input type="radio" name="first" data-radio="first" value="3" aria-label="Technique 3 is my first response"><input class="line-in" type="text" data-k="t3" placeholder="Technique 3" aria-label="Technique 3"></label>
+      <p class="cap">Select the circle next to the technique you will try first.</p>
+    </div>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">5.2.</b> Every project has expected and unexpected challenges. Use the space below to plan ahead for challenges and identify ways to overcome them.</p>
+    <ul><li>List <b>2-3 <u>expected</u> challenges</b>. For each expected challenge, list strategies you can use to overcome each challenge, and who you can reach out to for support. (Hint: Refer to your #3.3 Personal Ties Map!)</li></ul>
+    <div class="gridwrap" id="g-exp"></div>
+    <ul><li>List <b>1-2 <u>unexpected</u> challenges</b>. For each unexpected challenge, list strategies you can use to overcome each challenge, and who you can reach out to for support. (Hint: Refer to your #3.3 Personal Ties Map!)</li></ul>
+    <div class="gridwrap" id="g-unexp"></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6" data-sec="s6">
+  <h2><span class="num">6.</span> Getting Started <span class="tag" hidden>Complete</span></h2>
+  <p class="lead">Now, it is time to share your work with your Advisor! Once your Advisor approves your project plan, you can get started on your passion project.</p>
+  <label class="cbrow"><input type="checkbox" data-ck="c6a"><div>I shared my work with my Advisor.</div></label>
+  <label class="cbrow"><input type="checkbox" data-ck="c6b"><div>My Advisor approved my project plan.</div></label>
+  <div class="q">
+    <p class="qh">Keep this workbook with you as you work to:</p>
+    <ul>
+      <li>Remind yourself of your goal and why you are doing the project.</li>
+      <li>Refer to #4.1 to check off tasks/alter them as you go.</li>
+      <li>Review your answers to “5. Setting up for Success” to remind you of the techniques you identified and committed to use to manage unfocus and handle challenges.</li>
+    </ul>
+    <div class="callout go">When you have finished your project, return here for guidelines for your presentation!</div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7" data-sec="s7">
+  <h2><span class="num">7.</span> Presentation Guidelines <span class="tag" hidden>Complete</span></h2>
+  <p class="lead">You finished your project! Congratulations!!! Now, it is time to present to your peers.</p>
+  <p class="sec-h3">Format &amp; Length</p>
+  <label class="cbrow"><input type="checkbox" data-ck="c7a"><div><b>Format</b>: Your presentation should utilize a visual presentation medium you are comfortable using. This could include, but is not limited to: PowerPoint, Google Slides, Prezi, Vyond, Keynote, Zoho, or even a video. It’s up to you, but remember, the medium should not take away from or distract your presentation, it should add to the power of your presentation and reflection.</div></label>
+  <label class="cbrow"><input type="checkbox" data-ck="c7b"><div><b>Length of presentation</b>: 5-7 minutes, 3-5 minutes for questions</div></label>
+  <p class="sec-h3">Presentation Checklist</p>
+  <label class="cbrow"><input type="checkbox" data-ck="c7c"><div><b>Introduce Yourself and the Goals for Your Presentation</b><span class="d">This seems obvious but is often forgotten. Be sure to start from the top, make introductions and give a little context!</span></div></label>
+  <label class="cbrow"><input type="checkbox" data-ck="c7d"><div><b>Personal Purpose &amp; Relevance</b><span class="d">How did you decide on your passion project? How is it relevant to you? How is it meaningful? Had you considered doing something like this before? How was your project low-risk, low-pressure, and passion-based?</span></div></label>
+  <label class="cbrow"><input type="checkbox" data-ck="c7e"><div><b>Passion Project Findings</b><span class="d">How did your passion project relate to your T-Popper? What did you discover about yourself through your passion project experience? Walk your audience through your project, from start to finish.</span></div></label>
+  <fieldset style="border:0;padding:0;margin:6px 0 0" role="radiogroup" aria-label="Pick one question to answer">
+    <legend style="padding:6px 0;font-weight:500">Pick <b>one</b> of the following questions to answer. (Mark it below)</legend>
+    <label class="cbrow sub"><input type="radio" name="pick7" data-radio="pick7" value="1"><div>What other options and/or opportunities did you have and why did you choose this one?</div></label>
+    <label class="cbrow sub"><input type="radio" name="pick7" data-radio="pick7" value="2"><div>What were your goals for learning and growth? How do you feel about your progress towards these goals and growth?</div></label>
+    <label class="cbrow sub"><input type="radio" name="pick7" data-radio="pick7" value="3"><div>What are some highlights, insights, or experiences you would like to share?</div></label>
+    <label class="cbrow sub"><input type="radio" name="pick7" data-radio="pick7" value="4"><div>Moving forward, what do you plan or hope to work on next Passion Project? How will you build on what you have learned about yourself?</div></label>
+  </fieldset>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8" data-sec="s8">
+  <h2><span class="num">8.</span> Reflection &amp; Looking Ahead <span class="tag" hidden>Complete</span></h2>
+  <div class="q" style="margin-top:0">
+    <p class="qh"><b class="qn">8.1</b> Use the space below to answer the following questions related to your passion.</p>
+    <ul>
+      <li>Has your passion grown for your topic? Why or why not?</li>
+      <li>Do you plan to continue learning more about your topic and delving even deeper?
+        <ul><li>If so, where will you make space in your daily life to continue this project?</li></ul></li>
+    </ul>
+    <textarea class="paper" data-k="q81" data-rows="6" aria-label="Answer to 8.1"></textarea>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">8.2</b> Reflection on Process</p>
+    <ul>
+      <li>To what extent did you follow your project plan? What made it easier/more difficult for you to follow the plan?</li>
+      <li>If you were to plan the project again, what would you shift in terms of order of steps/tasks, timing, etc.?</li>
+      <li>What (if any) tools that you used to stay focused/overcome challenges on this project will you use in future projects?</li>
+    </ul>
+    <textarea class="paper" data-k="q82" data-rows="6" aria-label="Answer to 8.2"></textarea>
+  </div>
+  <div class="q">
+    <p class="qh"><b class="qn">8.3.</b> New Ideas</p>
+    <ul><li>Use the space below to list 2-3 new ideas for your next passion project. (These can include continuations of parts of this passion project).</li></ul>
+    <textarea class="paper" data-k="q83" data-rows="5" aria-label="Answer to 8.3"></textarea>
+  </div>
+</section>
+
+<section class="card tools" id="save">
+  <h2 style="color:var(--ink);font-size:26px">Save &amp; share</h2>
+  <p class="lead" style="margin:0">Your answers save automatically to your account, so you can sign in from any device and keep going. To keep a copy or print it, download your completed workbook. It prints cleanly in black and white.</p>
+  <div class="btns">
+    <button class="btn primary" id="dlHtml" type="button">Download completed workbook</button>
+    <button class="btn" id="dlJson" type="button">Download backup</button>
+    <button class="btn" id="restoreBtn" type="button">Restore from backup</button>
+    <input type="file" id="restoreFile" accept=".json,application/json">
+    <button class="btn danger" id="resetBtn" type="button">Reset workbook</button>
+  </div>
+  <p class="msg" id="toolMsg" aria-live="polite"></p>
+</section>
+</main>
+</div>
+
+<script src="config.js"></script>
+<script src="supabase.js"></script>
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const KEY='passion-project-workbook-v1';
+
+/* ---------- state ---------- */
+const GRIDS={
+  plan:{cols:[{f:'done',l:'Done',t:'check'},{f:'task',l:'Step or task',t:'area'},{f:'time',l:'Time to complete',t:'text'},{f:'due',l:'Due date',t:'date'},{f:'res',l:'Resources needed',t:'area'},{f:'ppl',l:'People I need for this step',t:'area'}],blank:{done:0,task:'',time:'',due:'',res:'',ppl:''},n:9},
+  exp:{cols:[{f:'c',l:'Expected challenge',t:'area'},{f:'h',l:'How I can overcome it',t:'area'},{f:'w',l:'Who will support me',t:'area'}],blank:{c:'',h:'',w:''},n:3},
+  unexp:{cols:[{f:'c',l:'Unexpected challenge',t:'area'},{f:'h',l:'How I can overcome it',t:'area'},{f:'w',l:'Who will support me',t:'area'}],blank:{c:'',h:'',w:''},n:2}
+};
+const rows=(k)=>Array.from({length:GRIDS[k].n},()=>Object.assign({},GRIDS[k].blank));
+const def=()=>({meta:{name:'',date:'',advisor:''},f:{},ck:{},radio:{},topics:['','',''],
+  venn:[{x:110,y:505,p:0},{x:300,y:505,p:0},{x:490,y:505,p:0}],ties:[],plan:rows('plan'),exp:rows('exp'),unexp:rows('unexp')});
+const CFG=window.PASSION_CONFIG||{};
+let sb=null,me=null,loadedFor=null,RO=false,lastVersion=0,conflict=false,saving=false,again=false,saveT=null,retryT=null,advisors=[];
+let S=def();
+const LKEY=()=>'passion-workbook-v2-'+(loadedFor||'x');
+const hhmm=()=>new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+function note(t){const n=$('#savedNote');if(n)n.textContent=t}
+function save(){
+  if(RO||!sb||!loadedFor||conflict)return;
+  try{localStorage.setItem(LKEY(),JSON.stringify(S))}catch(e){}
+  note('Saving\u2026');
+  clearTimeout(saveT);saveT=setTimeout(flush,900);
+}
+async function flush(){
+  if(RO||conflict||!loadedFor)return;
+  if(saving){again=true;return}
+  saving=true;const snap=JSON.stringify(S);let res;
+  try{res=await sb.from('workbooks').update({data:JSON.parse(snap)}).eq('user_id',loadedFor).eq('version',lastVersion).select('version')}
+  catch(e){res={error:e}}
+  saving=false;
+  if(res.error){note('Not saved yet. Check your connection. Your answers are kept on this device and will retry.');clearTimeout(retryT);retryT=setTimeout(flush,8000);return}
+  if(!res.data||!res.data.length){conflict=true;$('#conflict').hidden=false;note('Not saved. This workbook changed somewhere else.');return}
+  lastVersion=res.data[0].version;
+  if(again||JSON.stringify(S)!==snap){again=false;flush();return}
+  note('Saved to your account at '+hhmm());
+}
+addEventListener('beforeunload',e=>{if(saveT&&!saving&&!conflict&&!RO&&/^Saving/.test($('#savedNote').textContent)){e.preventDefault();e.returnValue=''}});
+const filled=k=>((S.f[k]||'').trim().length>0);
+
+/* ---------- progress ---------- */
+const SECS=[
+  {id:'s1',n:'Get Curious',items:()=>[filled('q11'),filled('q12a'),filled('q12b'),S.topics.every(t=>t.trim()),S.venn.every(v=>v.p),filled('q13')]},
+  {id:'s2',n:'Defining Your Project',items:()=>[filled('q21'),filled('q22'),filled('q23')]},
+  {id:'s3',n:'Gathering Resources',items:()=>[filled('q31'),filled('q32'),S.ties.length>=2,S.ties.some(t=>t.acct),filled('e1'),!!S.ck.c34]},
+  {id:'s4',n:'Planning and Timeline',items:()=>[S.plan.filter(r=>r.task.trim()).length>=3,S.plan.some(r=>r.due),!!S.ck.c42]},
+  {id:'s5',n:'Setting Up for Success',items:()=>[filled('q51'),filled('t1')&&filled('t2')&&filled('t3'),!!S.radio.first,S.exp.filter(r=>r.c.trim()).length>=2,S.unexp.filter(r=>r.c.trim()).length>=1]},
+  {id:'s6',n:'Getting Started',items:()=>[!!S.ck.c6a,!!S.ck.c6b]},
+  {id:'s7',n:'Presentation Guidelines',items:()=>['c7a','c7b','c7c','c7d','c7e'].map(k=>!!S.ck[k]).concat([!!S.radio.pick7])},
+  {id:'s8',n:'Reflection & Looking Ahead',items:()=>[filled('q81'),filled('q82'),filled('q83')]}
+];
+const STEPS=SECS.map(x=>x.id).concat(['save']);
+const STEPNAME=Object.assign(Object.fromEntries(SECS.map(x=>[x.id,x.n])),{save:'Finish & export'});
+function buildNav(){
+  $('#navList').innerHTML=STEPS.map((id,i)=>`<li><a href="#${id}" data-go="${id}"><span class="ring" id="ring-${id}"><span>${id==='save'?'\u2605':i+1}</span></span><span><span class="t-long">${esc(STEPNAME[id])}</span></span></a></li>`).join('');
+  $$('#navList [data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goStep(a.dataset.go)}));
+  $$('section[data-sec],#save').forEach(el=>el.classList.add('step'));
+  STEPS.forEach((id,i)=>{
+    const el=document.getElementById(id),d=document.createElement('div');d.className='stepnav';
+    d.innerHTML=(i?`<button class="btn" type="button" data-step="${STEPS[i-1]}">\u2190 Back</button>`:'<span></span>')+(i<STEPS.length-1?`<button class="btn primary" type="button" data-step="${STEPS[i+1]}">Next: ${esc(STEPNAME[STEPS[i+1]])} \u2192</button>`:'');
+    el.appendChild(d);
+  });
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(b)goStep(b.dataset.step)});
+  addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(STEPS.includes(id)&&id!==cur)goStep(id)});
+}
+let cur='s1';
+function goStep(id,opts){
+  if(!STEPS.includes(id))id='s1';
+  cur=id;
+  STEPS.forEach(x=>{const el=document.getElementById(x);if(el)el.classList.toggle('cur',x===id)});
+  $('#top').hidden=(id!=='s1');
+  $$('#navList a').forEach(a=>{if(a.dataset.go===id){a.setAttribute('aria-current','true');a.scrollIntoView({block:'nearest',inline:'center'})}else a.removeAttribute('aria-current')});
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+  if(!(opts&&opts.noScroll)){window.scrollTo(0,0);requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>window.scrollTo(0,0),80)}
+  growAll();
+}
+function updateProgress(){
+  let done=0,total=0;
+  SECS.forEach((s,i)=>{
+    const it=s.items(), d=it.filter(Boolean).length, t=it.length; done+=d; total+=t;
+    const pct=Math.round(100*d/t), full=d===t;
+    const ring=$('#ring-'+s.id);
+    if(ring){ring.style.setProperty('--p',pct);ring.classList.toggle('full',full);ring.firstElementChild.textContent=full?'✓':String(i+1);}
+    const a=ring&&ring.closest('a'); if(a)a.setAttribute('title',s.n+': '+d+' of '+t+' done');
+    const tag=$('#'+s.id+' h2 .tag'); if(tag)tag.hidden=!full;
+  });
+  const p=Math.round(100*done/total);
+  $('#overallPct').textContent=p+'%';
+  const b=$('#overallBar'); b.setAttribute('aria-valuenow',p); b.firstElementChild.style.width=p+'%';
+}
+
+
+/* ---------- text fields ---------- */
+const PH={q11:'Write for the full five minutes. Don\u2019t edit yourself. Anything goes.',
+q12a:'What patterns do you see in what you starred? What would you like to give more attention to?',
+q12b:'List anything from 1.1 that isn\u2019t on your T-Popper, and say whether it should be.',
+q13:'Which topic fits all three circles? What does that tell you about your choice?',
+q21:'Describe the problem you want to solve or the skill you want to build.',
+q22:'What will exist when you are done? A piece, a performance, a prototype, a presentation?',
+q23:'In one sentence: I am going to \u2026',
+q31:'List the materials, tools, equipment, and software you will need.',
+q32:'What do you need to find out, and where will you look?',
+e1:'Hi [name], my name is \u2026 I\u2019m working on a passion project about \u2026 I\u2019d love to ask you \u2026',
+e2:'Hi [name], \u2026',e3:'Hi [name], \u2026',e1to:'Name or email',e2to:'Name or email',e3to:'Name or email',
+q51:'What are your early warning signs? What do you start doing, or stop doing? How does it feel?',
+t1:'Technique 1',t2:'Technique 2',t3:'Technique 3',
+q81:'Has your passion grown? Will you keep going, and where will you make space for it?',
+q82:'How closely did you follow your plan? What would you change? Which tools will you reuse?',
+q83:'List two or three ideas for your next passion project.'};
+function grow(el){
+  el.style.height='auto';
+  const cs=getComputedStyle(el),min=parseFloat(cs.minHeight)||0;
+  el.style.height=Math.max(el.scrollHeight+(el.classList.contains('paper')?3:0),min)+'px';
+}
+function growAll(){$$('textarea').forEach(grow)}
+function bindFields(){
+  $$('textarea.paper').forEach(t=>t.style.setProperty('--rows',Math.max(3,Math.round((+t.dataset.rows||5)*0.55))));
+  $$('[data-k]').forEach(el=>{const ph=PH[el.dataset.k];if(ph)el.placeholder=ph});
+  $$('[data-k]').forEach(el=>{
+    el.value=S.f[el.dataset.k]||'';
+    el.classList.toggle('has',!!el.value.trim());
+    el.addEventListener('input',()=>{S.f[el.dataset.k]=el.value;el.classList.toggle('has',!!el.value.trim());if(el.tagName==='TEXTAREA')grow(el);save();updateProgress()});
+  });
+  $$('[data-meta]').forEach(el=>{
+    el.value=S.meta[el.dataset.meta]||'';
+    el.addEventListener('input',()=>{S.meta[el.dataset.meta]=el.value;save();if(el.dataset.meta==='name')renderTies()});
+  });
+  $$('[data-ck]').forEach(el=>{
+    el.checked=!!S.ck[el.dataset.ck];
+    el.addEventListener('change',()=>{S.ck[el.dataset.ck]=el.checked;save();updateProgress()});
+  });
+  $$('[data-radio]').forEach(el=>{
+    el.checked=S.radio[el.dataset.radio]===el.value;
+    el.addEventListener('change',()=>{if(el.checked){S.radio[el.dataset.radio]=el.value;save();updateProgress()}});
+  });
+  for(let i=0;i<3;i++){
+    const el=$('#topic'+i); el.value=S.topics[i]||'';
+    el.addEventListener('input',()=>{S.topics[i]=el.value;save();renderVenn();updateProgress()});
+  }
+}
+
+/* ---------- timer ---------- */
+let tEnd=0,tId=null,tRem=300;const T=300;
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function tShow(rem){
+  $('#tDisplay').textContent=fmt(Math.max(0,Math.ceil(rem)));
+  $('#tBar').style.width=Math.max(0,Math.min(100,100*(1-rem/T)))+'%';
+}
+function tStop(){clearInterval(tId);tId=null}
+$('#tStart').addEventListener('click',()=>{
+  const b=$('#tStart');
+  if(tId){tRem=Math.max(0,(tEnd-Date.now())/1000);tStop();b.textContent='Resume';$('#tMsg').textContent='Paused.';return}
+  tEnd=Date.now()+tRem*1000;b.textContent='Pause';$('#tMsg').textContent='Write without stopping.';$('#tDisplay').classList.remove('end');
+  tId=setInterval(()=>{
+    const r=(tEnd-Date.now())/1000;tShow(r);
+    if(r<=0){tStop();tRem=T;b.textContent='Start again';$('#tDisplay').classList.add('end');$('#tMsg').textContent='Time is up. Finish your thought, then move on to 1.2.'}
+  },250);
+});
+$('#tReset').addEventListener('click',()=>{tStop();tRem=T;$('#tStart').textContent='Start 5 minutes';$('#tMsg').textContent='';$('#tDisplay').classList.remove('end');tShow(T)});
+
+/* ---------- svg helpers ---------- */
+function pal(ex){return ex?{ink:'#000',muted:'#555',surf:'#fff',acc:'#000',a:'#000',b:'#000',c:'#000',font:'Helvetica,Arial,sans-serif',tint:'#eee'}
+  :{ink:'var(--ink)',muted:'var(--muted)',surf:'var(--surface)',acc:'var(--accent)',a:'var(--blue)',b:'var(--accent)',c:'var(--teal)',font:'var(--body)',tint:'var(--accent-tint)'}}
+function chipW(t){return Math.max(78,Math.min(176,30+t.length*7.3))}
+function trunc(t,w){const m=Math.floor((w-26)/7.3);return t.length>m?t.slice(0,Math.max(1,m-1))+'…':t}
+function svgPoint(svg,e){const m=svg.getScreenCTM();if(!m)return{x:0,y:0};const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());return{x:p.x,y:p.y}}
+function chipGroup(i,x,y,w,label,P,extra){
+  return `<g class="chip" data-i="${i}" data-w="${w}" tabindex="0" role="button" aria-label="${esc(extra.aria)}" transform="translate(${x-w/2},${y-15})">
+    <rect width="${w}" height="30" rx="15" style="fill:${extra.fill||P.surf};stroke:${extra.stroke||P.ink};stroke-width:${extra.sw||1.5}"/>
+    <text x="${w/2}" y="19.5" text-anchor="middle" style="fill:${P.ink};font:600 13px ${P.font};pointer-events:none">${esc(label)}</text></g>`;
+}
+function attachDrag(svg,cfg){
+  let cur=null;
+  svg.addEventListener('pointerdown',e=>{
+    if(RO)return;
+    const g=e.target.closest('.chip'); if(!g||e.button>0)return;
+    e.preventDefault();
+    const i=+g.dataset.i,p=svgPoint(svg,e),pos=cfg.get(i);
+    cur={g,i,dx:pos.x-p.x,dy:pos.y-p.y,w:+g.dataset.w};
+    try{svg.setPointerCapture(e.pointerId)}catch(_){}
+    g.parentNode.appendChild(g);
+  });
+  svg.addEventListener('pointermove',e=>{
+    if(!cur)return;
+    const p=svgPoint(svg,e),q=cfg.clamp(cur.i,p.x+cur.dx,p.y+cur.dy,cur.w);
+    cfg.set(cur.i,q.x,q.y); cur.g.setAttribute('transform',`translate(${q.x-cur.w/2},${q.y-15})`);
+    if(cfg.live)cfg.live(cur.i);
+  });
+  const up=()=>{if(!cur)return;const i=cur.i;cur=null;cfg.done(i)};
+  svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
+  svg.addEventListener('keydown',e=>{
+    if(RO)return;
+    const g=e.target.closest&&e.target.closest('.chip'); if(!g)return;
+    const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key]; if(!d)return;
+    e.preventDefault();const i=+g.dataset.i,w=+g.dataset.w,s=e.shiftKey?30:10,pos=cfg.get(i);
+    const q=cfg.clamp(i,pos.x+d[0]*s,pos.y+d[1]*s,w);cfg.set(i,q.x,q.y);cfg.done(i);
+    const n=svg.querySelector('.chip[data-i="'+i+'"]');if(n)n.focus();
+  });
+}
+
+/* ---------- venn ---------- */
+const CIRC=[{k:'Low-Risk',x:225,y:185,r:125,col:'a',lx:150,ly:38},{k:'Low-Pressure',x:375,y:185,r:125,col:'b',lx:450,ly:38},{k:'Passion-Based',x:300,y:300,r:125,col:'c',lx:300,ly:446}];
+const vLabel=i=>'ABC'[i];
+function vennName(i){return (S.topics[i]||'').trim()||('Topic '+vLabel(i))}
+function inCircles(x,y){return CIRC.map(c=>Math.hypot(x-c.x,y-c.y)<c.r)}
+function vennSvg(ex){
+  const P=pal(ex);let s='';
+  CIRC.forEach(c=>{s+=`<circle cx="${c.x}" cy="${c.y}" r="${c.r}" style="fill:${ex?'#fff':P[c.col]};fill-opacity:${ex?1:.14};stroke:${P[c.col]};stroke-width:2"/>`});
+  CIRC.forEach(c=>{s+=`<text x="${c.lx}" y="${c.ly}" text-anchor="middle" style="fill:${P[c.col]};font:700 15px ${P.font}">${c.k}</text>`});
+  s+=`<text x="300" y="222" text-anchor="middle" style="fill:${P.muted};font:500 11px ${P.font};letter-spacing:.06em">ALL THREE</text>`;
+  if(!ex){
+    s+=`<line x1="30" y1="470" x2="570" y2="470" style="stroke:${P.muted};stroke-dasharray:4 5;stroke-width:1"/>`;
+    s+=`<text x="300" y="492" text-anchor="middle" style="fill:${P.muted};font:500 12px ${P.font}">Topic tray. Drag a topic up into the diagram.</text>`;
+  }
+  S.venn.forEach((v,i)=>{
+    if(ex&&!v.p)return;
+    const nm=vennName(i),w=chipW('A · '+nm);
+    s+=chipGroup(i,v.x,v.y,w,trunc(vLabel(i)+' · '+nm,w),P,{aria:'Topic '+vLabel(i)+': '+nm+(v.p?'':' (in the tray)')+'. Drag, or use arrow keys, to place it on the diagram.'});
+  });
+  return s;
+}
+function vennNote(){
+  const items=S.venn.map((v,i)=>{
+    if(!v.p)return `<li style="color:var(--muted)">${vLabel(i)} · ${esc(vennName(i))}: in the tray, not placed yet</li>`;
+    const w=inCircles(v.x,v.y),names=CIRC.filter((c,j)=>w[j]).map(c=>c.k);
+    if(names.length===3)return `<li class="all">${vLabel(i)} · ${esc(vennName(i))}: fits all three ✓</li>`;
+    return `<li><b>${vLabel(i)} · ${esc(vennName(i))}</b>: ${names.length?esc(names.join(' + ')):'outside every circle'}</li>`;
+  });
+  $('#vennNote').innerHTML=items.join('');
+}
+function renderVenn(){$('#venn').innerHTML=vennSvg(false);vennNote()}
+attachDrag($('#venn'),{
+  get:i=>S.venn[i],
+  clamp:(i,x,y,w)=>({x:Math.max(w/2+4,Math.min(600-w/2-4,x)),y:Math.max(20,Math.min(520,y))}),
+  set:(i,x,y)=>{S.venn[i].x=Math.round(x);S.venn[i].y=Math.round(y);S.venn[i].p=y<462?1:0},
+  done:()=>{save();renderVenn();updateProgress()}
+});
+
+/* ---------- ties map ---------- */
+const CX=300,CY=300,R1=72,R2=172,R3=286;
+function ringOf(x,y){const d=Math.hypot(x-CX,y-CY);return d<=R2?'inner':d<=R3?'outer':'outside'}
+const ringLabel={inner:'Inner circle',outer:'Outer circle',outside:'Off the map'};
+function tieW(t){return chipW((t.acct?'★ ':'')+t.name)}
+function tiesSvg(ex){
+  const P=pal(ex);let s='';
+  s+=`<circle cx="${CX}" cy="${CY}" r="${R3}" style="fill:${ex?'#fff':'var(--tint)'};stroke:${P.a};stroke-width:2.5"/>`;
+  s+=`<circle cx="${CX}" cy="${CY}" r="${R2}" style="fill:${ex?'#fff':'var(--surface)'};stroke:${P.a};stroke-width:2.5"/>`;
+  s+=`<circle cx="${CX}" cy="${CY}" r="${R1}" style="fill:${ex?'#fff':'var(--tint)'};stroke:${P.a};stroke-width:2.5"/>`;
+  s+=`<text x="${CX}" y="${CY-R2+22}" text-anchor="middle" style="fill:${P.muted};font:700 11px ${P.font};letter-spacing:.14em">INNER CIRCLE</text>`;
+  s+=`<text x="${CX}" y="${CY-R3+24}" text-anchor="middle" style="fill:${P.muted};font:700 11px ${P.font};letter-spacing:.14em">OUTER CIRCLE</text>`;
+  const me=(S.meta.name||'').trim().split(/\s+/)[0]||'me';
+  s+=`<text x="${CX}" y="${CY+8}" text-anchor="middle" style="fill:${P.ink};font:400 26px 'DM Serif Display',Georgia,serif">${esc(me.length>9?me.slice(0,8)+'…':me)}</text>`;
+  S.ties.forEach((t,i)=>{
+    const w=tieW(t),lab=(t.acct?'★ ':'')+t.name;
+    s+=chipGroup(i,t.x,t.y,w,trunc(lab,w),P,{aria:t.name+(t.acct?', could keep me accountable':'')+', '+ringLabel[ringOf(t.x,t.y)]+'. Drag or use arrow keys to move.',fill:t.acct?(ex?'#e6e6e6':P.tint):P.surf,stroke:t.acct?P.acc:P.ink,sw:t.acct?2.5:1.5});
+  });
+  return s;
+}
+function renderTies(){
+  $('#ties').innerHTML=tiesSvg(false);
+  $('#peopleList').innerHTML=S.ties.map((t,i)=>`<li><span>${esc(t.name)}</span><span class="ringname">${ringLabel[ringOf(t.x,t.y)]}</span>
+    <label><input type="checkbox" data-acct="${i}" ${t.acct?'checked':''}> Accountability</label>
+    <button class="ic" type="button" data-rmtie="${i}" aria-label="Remove ${esc(t.name)}">×</button></li>`).join('');
+}
+function clampTie(i,x,y,w){
+  x=Math.max(w/2+4,Math.min(600-w/2-4,x));y=Math.max(20,Math.min(580,y));
+  let dx=x-CX,dy=y-CY,d=Math.hypot(dx,dy);const minD=R1+18;
+  if(d<minD){if(d<1){dx=0;dy=-1;d=1}x=CX+dx/d*minD;y=CY+dy/d*minD}
+  return {x:Math.round(x),y:Math.round(y)};
+}
+attachDrag($('#ties'),{
+  get:i=>S.ties[i],clamp:clampTie,
+  set:(i,x,y)=>{S.ties[i].x=x;S.ties[i].y=y},
+  done:()=>{save();renderTies();updateProgress()}
+});
+$('#tieForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nm=$('#tieName').value.trim(); if(!nm)return;
+  const ring=$('#tieRing').value,n=S.ties.length,ang=(n*137.5+ (ring==='outer'?40:0))*Math.PI/180,r=ring==='inner'?122:232;
+  const t={name:nm,acct:$('#tieAcct').checked,x:0,y:0};
+  const q=clampTie(0,CX+Math.cos(ang)*r,CY+Math.sin(ang)*r,chipW(nm)); t.x=q.x;t.y=q.y;
+  S.ties.push(t);$('#tieName').value='';$('#tieAcct').checked=false;$('#tieName').focus();
+  save();renderTies();updateProgress();
+});
+$('#peopleList').addEventListener('change',e=>{const i=e.target.dataset&&e.target.dataset.acct;if(i==null)return;S.ties[+i].acct=e.target.checked;save();renderTies();updateProgress()});
+$('#peopleList').addEventListener('click',e=>{const b=e.target.closest('[data-rmtie]');if(!b)return;S.ties.splice(+b.dataset.rmtie,1);save();renderTies();updateProgress()});
+
+/* ---------- grids ---------- */
+function renderGrid(key){
+  const g=GRIDS[key],box=$('#g-'+key),rs=S[key];
+  let h=`<div class="scroll"><table class="grid"><thead><tr>${g.cols.map(c=>`<th scope="col">${esc(c.l)}</th>`).join('')}<th class="x"><span class="sr">Remove</span></th></tr></thead><tbody>`;
+  rs.forEach((r,i)=>{
+    h+=`<tr data-r="${i}" class="${r.done?'done':''}">`+g.cols.map(c=>{
+      const at=`data-g="${key}" data-r="${i}" data-f="${c.f}" aria-label="${esc(c.l)}, row ${i+1}"`;let inner;
+      if(c.t==='check')inner=`<input type="checkbox" ${at} ${r[c.f]?'checked':''}>`;
+      else if(c.t==='date')inner=`<input type="date" ${at} value="${esc(r[c.f])}">`;
+      else if(c.t==='text')inner=`<input type="text" ${at} value="${esc(r[c.f])}">`;
+      else inner=`<textarea rows="2" ${at}>${esc(r[c.f])}</textarea>`;
+      return `<td data-label="${esc(c.l)}">${inner}</td>`}).join('')+
+    `<td class="x"><button class="ic" type="button" data-del="${key}:${i}" aria-label="Remove row ${i+1}">×</button></td></tr>`;
+  });
+  h+=`</tbody></table></div><div class="gridtools"><button class="btn sm" type="button" data-add="${key}">Add a row</button>`+
+     (key==='plan'?`<button class="btn sm" type="button" data-sort="plan">Sort by due date</button><span class="msg" id="planCount"></span>`:'')+`</div>`;
+  box.innerHTML=h;
+  $$('textarea',box).forEach(grow);
+  if(key==='plan')planCount();
+}
+function planCount(){
+  const el=$('#planCount');if(!el)return;
+  const t=S.plan.filter(r=>r.task.trim()).length,d=S.plan.filter(r=>r.task.trim()&&r.done).length;
+  el.textContent=t?d+' of '+t+' steps done':'';
+}
+$$('.gridwrap').forEach(box=>{
+  const key=box.id.slice(2);
+  box.addEventListener('input',e=>{
+    const t=e.target;if(!t.dataset.g)return;
+    S[key][+t.dataset.r][t.dataset.f]=t.type==='checkbox'?(t.checked?1:0):t.value;
+    if(t.tagName==='TEXTAREA')grow(t);
+    if(t.type==='checkbox')t.closest('tr').classList.toggle('done',t.checked);
+    save();updateProgress();if(key==='plan')planCount();
+  });
+  box.addEventListener('click',e=>{
+    const del=e.target.closest('[data-del]'),add=e.target.closest('[data-add]'),sort=e.target.closest('[data-sort]');
+    if(del){const [k,i]=del.dataset.del.split(':');S[k].splice(+i,1);if(!S[k].length)S[k].push(Object.assign({},GRIDS[k].blank));renderGrid(k);save();updateProgress()}
+    else if(add){S[key].push(Object.assign({},GRIDS[key].blank));renderGrid(key);save();updateProgress();const tr=$$('tbody tr',box).pop();const f=tr&&tr.querySelector('textarea,input:not([type=checkbox])');if(f)f.focus()}
+    else if(sort){const ix=S.plan.map((r,i)=>[r,i]);ix.sort((a,b)=>{const x=a[0].due||'9999',y=b[0].due||'9999';return x<y?-1:x>y?1:a[1]-b[1]});S.plan=ix.map(a=>a[0]);renderGrid('plan');save()}
+  });
+});
+
+/* ---------- export / backup ---------- */
+const EXPORT=[
+ ['1. Get Curious',[['t','1.1 What would you do if money, time, or other obligations were not a factor?','q11'],['t','1.2 What do you notice about what you starred? Themes? What would you like to focus on more?','q12a'],['t','1.2 Anything from #1.1 that is not on your T-Popper? Should you add it?','q12b'],['topics'],['venn'],['t','1.3 Does one topic fit in the intersection of all three circles?','q13']]],
+ ['2. Defining Your Project',[['t','2.1 What problem are you trying to solve, or what skill are you trying to develop?','q21'],['t','2.2 What will the final product or outcome of your project be?','q22'],['t','2.3 Describe your project in one sentence.','q23']]],
+ ['3. Gathering Resources',[['t','3.1 What materials or tools will you need to gather?','q31'],['t','3.2 What information do you need, and where can you find it?','q32'],['ties'],['email',1],['email',2],['email',3],['c','c34','3.4 I shared my drafts with my Advisor, made edits, and sent them.']]],
+ ['4. Planning and Timeline',[['grid','plan','4.1 Project plan'],['c','c42','4.2 My deadlines are in my calendar.']]],
+ ['5. Setting Up for Success',[['t','5.1 How will you know when you are starting to lose focus?','q51'],['techs'],['grid','exp','5.2 Expected challenges'],['grid','unexp','5.2 Unexpected challenges']]],
+ ['6. Getting Started',[['c','c6a','I shared my work with my Advisor.'],['c','c6b','My Advisor approved my project plan.']]],
+ ['7. Presentation Guidelines',[['c','c7a','Format: a visual medium I am comfortable using'],['c','c7b','Length: 5-7 minutes, 3-5 minutes for questions'],['c','c7c','Introduced myself and the goals for my presentation'],['c','c7d','Personal purpose and relevance'],['c','c7e','Passion project findings'],['pick']]],
+ ['8. Reflection & Looking Ahead',[['t','8.1 Has your passion grown? Will you keep going, and where will you make space?','q81'],['t','8.2 Reflection on process','q82'],['t','8.3 New ideas for your next passion project','q83']]]
+];
+const PICKS=['What other options and/or opportunities did you have and why did you choose this one?','What were your goals for learning and growth? How do you feel about your progress?','What are some highlights, insights, or experiences you would like to share?','Moving forward, what do you plan or hope to work on next? How will you build on what you have learned?'];
+const nl=s=>esc(s||'').replace(/\n/g,'<br>');
+const ans=s=>`<div class="ans">${(s||'').trim()?nl(s):'&nbsp;<br>&nbsp;'}</div>`;
+function exportHtml(){
+  let b='';
+  EXPORT.forEach(([h,items])=>{
+    b+=`<h2>${esc(h)}</h2>`;
+    items.forEach(it=>{
+      const k=it[0];
+      if(k==='t')b+=`<p class="q">${esc(it[1])}</p>${ans(S.f[it[2]])}`;
+      else if(k==='topics')b+=`<p class="q">1.3 My three topics</p><ol>${S.topics.map(t=>`<li>${esc(t)||'&nbsp;'}</li>`).join('')}</ol>`;
+      else if(k==='venn')b+=`<p class="q">Venn diagram: Low-Risk, Low-Pressure, Passion-Based</p><div class="fig"><svg viewBox="0 0 600 470" xmlns="http://www.w3.org/2000/svg">${vennSvg(true)}</svg></div><ul class="plain">${S.venn.map((v,i)=>{if(!v.p)return `<li>${vLabel(i)} · ${esc(vennName(i))}: not placed</li>`;const w=inCircles(v.x,v.y),n=CIRC.filter((c,j)=>w[j]).map(c=>c.k);return `<li>${vLabel(i)} · ${esc(vennName(i))}: ${n.length===3?'fits all three':(n.join(' + ')||'outside every circle')}</li>`}).join('')}</ul>`;
+      else if(k==='ties')b+=`<p class="q">3.3 Personal Ties Map</p><div class="fig"><svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">${tiesSvg(true)}</svg></div><p class="small">★ = could keep me accountable</p><ul class="plain">${S.ties.map(t=>`<li>${esc(t.name)}: ${ringLabel[ringOf(t.x,t.y)]}${t.acct?' ★':''}</li>`).join('')||'<li>No one added yet.</li>'}</ul>`;
+      else if(k==='email')b+=`<p class="q">3.4 Email draft ${it[1]}${S.f['e'+it[1]+'to']?' — to '+esc(S.f['e'+it[1]+'to']):''}</p>${ans(S.f['e'+it[1]])}`;
+      else if(k==='c')b+=`<p class="chk">${S.ck[it[1]]?'☑':'☐'} ${esc(it[2])}</p>`;
+      else if(k==='techs')b+=`<p class="q">5.1 Techniques to re-focus (★ = my first response)</p><ol>${[1,2,3].map(n=>`<li>${S.radio.first==String(n)?'★ ':''}${esc(S.f['t'+n])||'&nbsp;'}</li>`).join('')}</ol>`;
+      else if(k==='pick')b+=`<p class="q">Question I chose to answer</p><p>${S.radio.pick7?esc(PICKS[+S.radio.pick7-1]):'&nbsp;'}</p>`;
+      else if(k==='grid'){const g=GRIDS[it[1]],rs=S[it[1]].filter(r=>g.cols.some(c=>c.f!=='done'&&String(r[c.f]).trim()));
+        b+=`<p class="q">${esc(it[2])}</p><table><thead><tr>${g.cols.map(c=>`<th>${esc(c.l)}</th>`).join('')}</tr></thead><tbody>${(rs.length?rs:[Object.assign({},g.blank)]).map(r=>`<tr>${g.cols.map(c=>`<td>${c.t==='check'?(r[c.f]?'☑':'☐'):nl(r[c.f])||'&nbsp;'}</td>`).join('')}</tr>`).join('')}</tbody></table>`}
+    });
+  });
+  const css=`@page{margin:.6in}*{box-sizing:border-box}body{font:11pt/1.5 Helvetica,Arial,sans-serif;color:#000;background:#fff;max-width:7.3in;margin:0 auto;padding:16px}h1{font:700 22pt/1.1 Georgia,serif;margin:0 0 6px;border-bottom:2px solid #000;padding-bottom:6px}h2{font:700 14pt/1.2 Georgia,serif;margin:26px 0 8px;border-bottom:1px solid #000;padding-bottom:3px;break-after:avoid}.meta{display:flex;gap:24px;flex-wrap:wrap;margin:10px 0 0}.meta span b{font-size:9pt;letter-spacing:.08em;text-transform:uppercase}.q{font-weight:700;margin:14px 0 4px;break-after:avoid}.ans{border:1px solid #999;border-radius:4px;padding:8px 10px;min-height:2.4em;overflow-wrap:anywhere}.fig{max-width:5in;margin:6px auto}.fig svg{width:100%;height:auto}table{width:100%;border-collapse:collapse;font-size:9.5pt;break-inside:auto}th,td{border:1px solid #777;padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#eee}tr{break-inside:avoid}.chk{margin:4px 0}.small{font-size:9pt;margin:0}ul.plain{margin:4px 0;padding-left:18px}.np{margin:14px 0}@media print{.np{display:none}}`;
+  const d=S.meta.date?new Date(S.meta.date+'T12:00:00').toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}):'';
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Passion Project Workbook${S.meta.name?' - '+esc(S.meta.name):''}</title><style>${css}</style></head><body><button class="np" onclick="window.print()">Print this workbook</button><h1>Passion Project Workbook</h1><div class="meta"><span><b>Name</b> ${esc(S.meta.name)||'&nbsp;'}</span><span><b>Date</b> ${esc(d)||'&nbsp;'}</span><span><b>Advisor</b> ${esc(S.meta.advisor)||'&nbsp;'}</span></div>${b}</body></html>`;
+}
+function say(m){$('#toolMsg').textContent=m}
+function slug(){const n=(S.meta.name||'').trim().replace(/[^\w]+/g,'-').replace(/^-|-$/g,'');return 'Passion-Project-Workbook'+(n?'-'+n:'')}
+function saveFile(name,data,type){
+  const blob=new Blob([data],{type});const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},600);say('Saved '+name+'.');
+}
+$('#dlHtml').addEventListener('click',()=>saveFile(slug()+'.html',exportHtml(),'text/html'));
+$('#dlJson').addEventListener('click',()=>saveFile(slug()+'-backup.json',JSON.stringify(S,null,2),'application/json'));
+$('#restoreBtn').addEventListener('click',()=>$('#restoreFile').click());
+$('#restoreFile').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{const o=JSON.parse(r.result);if(!o||typeof o!=='object'||!o.f||!o.topics)throw 0;const nm=S.meta.name,av=S.meta.advisor;S=Object.assign(def(),o);S.meta=Object.assign({},S.meta,{name:nm,advisor:av});save();paintAll();say('Backup restored.')}
+    catch(_){say('That file is not a workbook backup.')}
+  };
+  r.readAsText(f);e.target.value='';
+});
+let resetArmed=0;
+$('#resetBtn').addEventListener('click',()=>{
+  const b=$('#resetBtn');
+  if(!resetArmed){resetArmed=setTimeout(()=>{resetArmed=0;b.textContent='Reset workbook';say('')},5000);b.textContent='Select again to erase everything';say('This clears every answer in this browser. Download a backup first if you want one.');return}
+  clearTimeout(resetArmed);resetArmed=0;b.textContent='Reset workbook';
+  const nm=S.meta.name,av=S.meta.advisor;S=def();S.meta.name=nm;S.meta.advisor=av;
+  paintAll();save();say('Workbook cleared.');
+});
+
+/* ---------- boot ---------- */
+function paintAll(){
+  $$('[data-k]').forEach(el=>{el.value=S.f[el.dataset.k]||''});
+  $$('[data-meta]').forEach(el=>{el.value=S.meta[el.dataset.meta]||''});
+  $$('[data-ck]').forEach(el=>{el.checked=!!S.ck[el.dataset.ck]});
+  $$('[data-radio]').forEach(el=>{el.checked=S.radio[el.dataset.radio]===el.value});
+  for(let i=0;i<3;i++)$('#topic'+i).value=S.topics[i]||'';
+  $$('[data-k]').forEach(el=>el.classList.toggle('has',!!el.value.trim()));
+  ['plan','exp','unexp'].forEach(renderGrid);
+  renderVenn();renderTies();growAll();updateProgress();applyRO();
+}
+
+/* ---------- screens ---------- */
+function showView(id){['viewBoot','viewCfg','viewAuth','viewRoster','viewApp'].forEach(v=>{$('#'+v).hidden=(v!==id)});if(id!=='viewApp')window.scrollTo(0,0)}
+function applyRO(){
+  document.body.classList.toggle('ro',RO);
+  $$('#viewApp input,#viewApp textarea,#viewApp select').forEach(el=>{el.disabled=RO&&el.id!=='restoreFile'?true:false});
+  $('#m-name').readOnly=true;
+  $('#m-advisor').readOnly=RO||!!(me&&me.advisor_id);
+}
+const normUser=u=>String(u||'').trim().toLowerCase();
+const okUser=u=>/^[a-z0-9._-]{3,30}$/.test(u);
+const emailFor=u=>u+'@'+(CFG.EMAIL_DOMAIN||'passion.templetonacademy.org');
+function authMsg(t,ok){const m=$('#authMsg');m.textContent=t||'';m.classList.toggle('ok',!!ok)}
+function authTab(up){
+  $('#tabIn').setAttribute('aria-selected',String(!up));$('#tabUp').setAttribute('aria-selected',String(up));
+  $('#formIn').hidden=up;$('#formUp').hidden=!up;authMsg('');
+  (up?$('#upName'):$('#inUser')).focus();
+}
+async function showAuth(){
+  loadedFor=null;me=null;S=def();RO=false;
+  showView('viewAuth');authTab(false);
+  try{
+    const {data}=await sb.rpc('list_advisors');
+    $('#upAdv').innerHTML='<option value="">Choose your advisor</option>'+(data||[]).map(a=>`<option value="${esc(a.id)}">${esc(a.display_name)}</option>`).join('');
+  }catch(e){}
+}
+async function loadProfile(uid){
+  const {data,error}=await sb.from('profiles').select('id,username,display_name,role,advisor_id').eq('id',uid).single();
+  return error?null:data;
+}
+async function enter(user){
+  me=await loadProfile(user.id);
+  if(!me){await sb.auth.signOut();showAuth();authMsg('Your account could not be loaded. Ask your advisor for help.');return}
+  try{const {data}=await sb.from('profiles').select('id,display_name').in('role',['advisor','admin']);advisors=data||[]}catch(e){advisors=[]}
+  $('#acctName').textContent=me.display_name;
+  $('#acctRole').textContent=me.role==='student'?'@'+me.username:(me.role==='admin'?'Admin':'Advisor')+' \u00b7 @'+me.username;
+  $('#btnRoster').hidden=me.role==='student';
+  if(me.role==='student')await openWorkbook(me.id,false);else await openRoster();
+}
+async function openWorkbook(uid,ro,who){
+  note('');
+  const {data,error}=await sb.from('workbooks').select('data,version').eq('user_id',uid).single();
+  if(error||!data){alert_('Could not load the workbook. Check your connection and reload.');return}
+  clearTimeout(saveT);clearTimeout(retryT);
+  loadedFor=uid;RO=!!ro;conflict=false;$('#conflict').hidden=true;lastVersion=data.version;
+  let d=data.data||{};
+  if(!ro&&!Object.keys(d).length){try{const raw=localStorage.getItem(LKEY());if(raw)d=JSON.parse(raw)}catch(e){}}
+  S=Object.assign(def(),d);S.meta=Object.assign({name:'',date:'',advisor:''},S.meta);
+  if(!ro){
+    S.meta.name=me.display_name;
+    const adv=advisors.find(a=>a.id===me.advisor_id);if(adv)S.meta.advisor=adv.display_name;
+  }else if(who&&!S.meta.name)S.meta.name=who;
+  $('#roBanner').hidden=!ro;
+  if(ro)$('#roText').textContent='Viewing '+(who||'a student')+'\u2019s workbook. This view is read only.';
+  showView('viewApp');
+  paintAll();
+  note(ro?'':'Saved to your account.');
+  goStep(location.hash.slice(1)||'s1',{noScroll:false});
+}
+function alert_(t){const m=$('#authMsg');if(!$('#viewAuth').hidden){m.textContent=t}else{$('#rosterMsg').textContent=t;note(t)}}
+function pctOf(d){
+  const keep=S;S=Object.assign(def(),d||{});let done=0,tot=0;
+  try{SECS.forEach(x=>{const it=x.items();done+=it.filter(Boolean).length;tot+=it.length})}catch(e){}finally{S=keep}
+  return tot?Math.round(100*done/tot):0;
+}
+async function openRoster(){
+  loadedFor=null;RO=false;
+  showView('viewRoster');
+  $('#rosterTitle').textContent=me.role==='admin'?'All students':'My students';
+  $('#rosterWho').textContent=me.display_name;
+  $('#rosterMsg').textContent='Loading\u2026';$('#rosterList').innerHTML='';
+  const [pr,wr]=await Promise.all([
+    sb.from('profiles').select('id,username,display_name,advisor_id').eq('role','student').order('display_name'),
+    sb.from('workbooks').select('user_id,data,updated_at')]);
+  if(pr.error||wr.error){$('#rosterMsg').textContent='Could not load students. Check your connection and try again.';return}
+  const wb=Object.fromEntries((wr.data||[]).map(w=>[w.user_id,w]));
+  const rows=pr.data||[];
+  $('#rosterMsg').textContent=rows.length?rows.length+(rows.length===1?' student':' students'):(me.role==='admin'?'No students have created an account yet.':'No students have chosen you as their advisor yet.');
+  $('#rosterList').innerHTML=rows.map(p=>{
+    const w=wb[p.id],pc=pctOf(w&&w.data),when=w&&w.updated_at&&Object.keys(w.data||{}).length?new Date(w.updated_at).toLocaleDateString([],{month:'short',day:'numeric'}):'not started';
+    const sel=me.role==='admin'?`<select data-adv="${esc(p.id)}" aria-label="Advisor for ${esc(p.display_name)}"><option value="">No advisor</option>${advisors.map(a=>`<option value="${esc(a.id)}"${a.id===p.advisor_id?' selected':''}>${esc(a.display_name)}</option>`).join('')}</select>`:'<span></span>';
+    return `<div class="rrow"><div class="n"><b>${esc(p.display_name)}</b><span>@${esc(p.username)} \u00b7 last saved ${esc(when)}</span></div><div class="pc"><div class="bar"><i style="width:${pc}%"></i></div>${pc}% complete</div>${sel}<button class="btn sm primary" type="button" data-open="${esc(p.id)}" data-name="${esc(p.display_name)}">Open</button></div>`;
+  }).join('');
+}
+$('#rosterList').addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)openWorkbook(b.dataset.open,true,b.dataset.name)});
+$('#rosterList').addEventListener('change',async e=>{
+  const sel=e.target.closest('[data-adv]');if(!sel)return;
+  const {error}=await sb.from('profiles').update({advisor_id:sel.value||null}).eq('id',sel.dataset.adv);
+  $('#rosterMsg').textContent=error?'Could not change the advisor.':'Advisor updated.';
+});
+async function out(){
+  clearTimeout(saveT);if(!RO&&loadedFor&&!conflict)await flush();
+  await sb.auth.signOut();showAuth();
+}
+$('#btnOut').addEventListener('click',out);$('#rosterOut').addEventListener('click',out);
+$('#btnRoster').addEventListener('click',async()=>{if(!RO&&loadedFor)await flush();openRoster()});
+$('#roBack').addEventListener('click',openRoster);
+$('#reloadBtn').addEventListener('click',()=>location.reload());
+$('#tabIn').addEventListener('click',()=>authTab(false));
+$('#tabUp').addEventListener('click',()=>authTab(true));
+
+$('#formIn').addEventListener('submit',async e=>{
+  e.preventDefault();const u=normUser($('#inUser').value),p=$('#inPass').value;
+  if(!okUser(u)){authMsg('That username and password do not match.');return}
+  authMsg('Signing in\u2026',true);
+  const {data,error}=await sb.auth.signInWithPassword({email:emailFor(u),password:p});
+  if(error){authMsg(/invalid login/i.test(error.message)?'That username and password do not match.':'Could not sign in. Check your connection and try again.');return}
+  authMsg('');$('#inPass').value='';await enter(data.user);
+});
+$('#formUp').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=$('#upName').value.trim(),u=normUser($('#upUser').value),p=$('#upPass').value,adv=$('#upAdv').value,code=$('#upCode').value.trim();
+  if(!name){authMsg('Enter your name.');return}
+  if(!okUser(u)){authMsg('Usernames use 3 to 30 letters, numbers, dots, dashes or underscores.');return}
+  if(p.length<8){authMsg('Your password needs at least 8 characters.');return}
+  if(!code){authMsg('Enter the class code from your advisor.');return}
+  authMsg('Creating your account\u2026',true);
+  const {data,error}=await sb.auth.signUp({email:emailFor(u),password:p,options:{data:{username:u,display_name:name,advisor_id:adv,code}}});
+  if(error){
+    authMsg(/already registered|already been registered/i.test(error.message)?'That username is taken. Try another.':
+      /database error/i.test(error.message)?'Could not create the account. Check the class code and username.':
+      /password/i.test(error.message)?error.message:'Could not create the account. Check your connection and try again.');return}
+  if(!data.session){authMsg('Account created, but this site still requires email confirmation. Ask your administrator to turn that off.');return}
+  authMsg('');$('#upPass').value='';await enter(data.user);
+});
+
+/* ---------- boot ---------- */
+buildNav();bindFields();
+['plan','exp','unexp'].forEach(renderGrid);
+renderVenn();renderTies();growAll();updateProgress();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(growAll);
+addEventListener('resize',growAll);
+(async()=>{
+  if(!CFG.SUPABASE_URL||!CFG.SUPABASE_ANON_KEY||!window.supabase){showView('viewCfg');return}
+  sb=window.supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+  let session=null;
+  try{const r=await sb.auth.getSession();session=r.data&&r.data.session}catch(e){}
+  if(session)await enter(session.user);else showAuth();
+})();
+})();
+</script>
+</body>
+</html>
